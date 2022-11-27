@@ -4,8 +4,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        blue: '#72B9F5',
         darkBlue: '#001E6C',
-        blue: '#035397',
         orange: '#E8630A',
         yellow: '#FCD900',
         white: '#FFFFFF',
@@ -21,6 +21,7 @@ module.exports = {
     },
     fontFamily: {
       sans: ['Roboto', 'sans-serif'],
+      RobotoMono: ['Roboto Mono', 'monospace'],
       Montserrat: ['Montserrat', 'sans-serif'],
     },
   },
