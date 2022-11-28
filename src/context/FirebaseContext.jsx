@@ -10,7 +10,7 @@ function FirebaseProvider({ children }) {
   const { isFirebaseInitialized } = useFirebase();
 
   return (
-    <FirebaseContext.Provider value={null}>{isFirebaseInitialized ? children : <Loader />}</FirebaseContext.Provider>
+    <FirebaseContext.Provider value={{}}>{isFirebaseInitialized ? children : <Loader />}</FirebaseContext.Provider>
   );
 }
 

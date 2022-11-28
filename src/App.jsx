@@ -6,12 +6,12 @@ import Navbar from './components/Navbar';
 
 function App() {
   return (
-    <section className="flex flex-col justify-start items-center min-h-screen">
+    <section className="flex flex-col justify-start items-center min-h-screen bg-sky-50">
       <FirebaseProvider>
         <Router>
           <Navbar />
           <Routes>
-            <Route path="/cashier" element={<Cashier />} />
+            <Route path="/" element={<Cashier />} />
           </Routes>
         </Router>
       </FirebaseProvider>
