@@ -14,8 +14,6 @@ function Pump({ price = 0.0, type = 'Unknown' }) {
         return PumpHeating;
       case 'Πετρέλαιο':
         return PumpDiesel;
-      case 'Αμόλυβδη':
-        return PumpUnleaded;
       default:
         return PumpUnleaded;
     }
@@ -28,19 +26,19 @@ function Pump({ price = 0.0, type = 'Unknown' }) {
         <input
           type="number"
           placeholder="μετρητής"
-          className="w-[96%] h-[36%] px-1 absolute top-[10%] left-[2%] z-20 text-base text-right"
+          className="w-[96%] h-[36%] px-1 absolute top-[10%] left-[2%] z-20 text-sm text-right font-Orbitron font-[600]"
           value={pumpCounter}
           onChange={(e) => setPumpCounter(e.target.value)}
         />
         <input
           type="number"
           placeholder="τιμή"
-          className="w-[96%] h-[36%] px-1 absolute top-[55%] left-[2%] z-20 text-base text-right"
+          className="w-[96%] h-[36%] px-1 absolute top-[55%] left-[2%] z-20 text-sm text-right font-Orbitron font-[600]"
           value={pumpPrice}
           onChange={(e) => setPumpPrice(e.target.value)}
         />
       </div>
-      <h1 className="absolute w-[40%] top-[55%] left-[41%] text-base font-bold font-RobotoMono text-center">{type}</h1>
+      <h1 className="absolute w-[40%] top-[55%] left-[41%] text-base font-bold text-center">{type}</h1>
     </div>
   );
 }

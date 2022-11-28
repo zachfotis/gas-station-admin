@@ -21,9 +21,9 @@ module.exports = {
     },
     fontFamily: {
       sans: ['Roboto', 'sans-serif'],
-      RobotoMono: ['Roboto Mono', 'monospace'],
+      Orbitron: ['Orbitron', 'sans-serif'],
       Montserrat: ['Montserrat', 'sans-serif'],
     },
   },
-  plugins: [],
+  plugins: [require('daisyui')],
 };
