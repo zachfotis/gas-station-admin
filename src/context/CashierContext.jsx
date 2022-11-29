@@ -1,42 +1,53 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
+import { getFirestore, collection, getDocs, doc, updateDoc } from 'firebase/firestore';
+import FirebaseContext from './FirebaseContext';
+import { toast } from 'react-toastify';
 
 const CashierContext = createContext();
 
 export default CashierContext;
 
 const CashierProvider = ({ children }) => {
-  const [pumps, setPumps] = useState(pumpsData);
+  const [pumps, setPumps] = useState([]);
+  const { setIsLoading } = useContext(FirebaseContext);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    const getPumps = async () => {
+      try {
+        setIsLoading(true);
+        const db = getFirestore();
+        const collectionRef = collection(db, 'pumps');
+        const querySnap = await getDocs(collectionRef);
+        const data = querySnap.docs.map((doc) => {
+          return { ...doc.data(), doc_id: doc.id };
+        });
+        setPumps(data);
+      } catch (error) {}
+      setIsLoading(false);
+    };
 
-  return <CashierContext.Provider value={{ pumps, setPumps }}>{children}</CashierContext.Provider>;
+    getPumps();
+  }, [setIsLoading]);
+
+  const updatePumps = async () => {
+    try {
+      setIsLoading(true);
+      const db = getFirestore();
+      pumps.forEach(async (pump) => {
+        const { doc_id, ...pumpData } = pump;
+        const docRef = doc(db, 'pumps', doc_id);
+        await updateDoc(docRef, {
+          ...pumpData,
+          updated_at: new Date(),
+        });
+      });
+      toast.success('Επιτυχής ενημέρωση αντλιών');
+    } catch (error) {
+      toast.error('Αποτυχία ενημέρωσης αντλιών');
+    }
+    setIsLoading(false);
+  };
+  return <CashierContext.Provider value={{ pumps, setPumps, updatePumps }}>{children}</CashierContext.Provider>;
 };
 
 export { CashierProvider };
-
-const pumpsData = [
-  {
-    id: 1,
-    type: 'Θέρμανση',
-    price: 1.295,
-    counter: 0,
-  },
-  {
-    id: 2,
-    type: 'Πετρέλαιο',
-    price: 2.183,
-    counter: 0,
-  },
-  {
-    id: 3,
-    type: 'Αμόλυβδη 1',
-    price: 2.305,
-    counter: 0,
-  },
-  {
-    id: 4,
-    type: 'Αμόλυβδη 2',
-    price: 2.305,
-    counter: 0,
-  },
-];

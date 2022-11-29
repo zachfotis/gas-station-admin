@@ -12,7 +12,10 @@ function Navbar() {
         <div className="flex-none">
           <ul className="menu menu-horizontal p-0 font-[300]">
             <li>
-              <Link to="/">Ταμείο</Link>
+              <Link to="/">Αντλίες</Link>
+            </li>
+            <li>
+              <Link to="/cashier">Ταμείο</Link>
             </li>
             <li>
               <Link to="/history">Ιστορικό</Link>

@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import PumpUnleaded from '../assets/images/pump_unleaded.png';
 import PumpDiesel from '../assets/images/pump_diesel.png';
 import PumpHeating from '../assets/images/pump_heating.png';
