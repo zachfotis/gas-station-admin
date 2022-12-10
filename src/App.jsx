@@ -8,6 +8,7 @@ import Pumps from './pages/Pumps';
 import Navbar from './components/Navbar';
 import Login from './pages/Login';
 import Logout from './pages/Logout';
+import Cashier from './pages/Cashier';
 
 function App() {
   const { isLoggedIn } = useContext(FirebaseContext);
@@ -19,6 +20,7 @@ function App() {
           {isLoggedIn ? (
             <>
               <Route path="/" element={<Pumps />} />
+              <Route path="/cashier" element={<Cashier />} />
               <Route path="/logout" element={<Logout />} />
             </>
           ) : (

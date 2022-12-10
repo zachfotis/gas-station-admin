@@ -32,7 +32,7 @@ function FirebaseProvider({ children }) {
 
   return (
     <FirebaseContext.Provider value={{ isLoading, setIsLoading, isLoggedIn }}>
-      {children}
+      {isFirebaseInitialized && children}
       {(!isFirebaseInitialized || isLoading) && <Loader />}
     </FirebaseContext.Provider>
   );

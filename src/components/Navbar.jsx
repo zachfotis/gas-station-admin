@@ -1,6 +1,10 @@
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 function Navbar() {
+  const checkActive = ({ isActive }) => {
+    return isActive ? 'font-[500]' : '';
+  };
+
   return (
     <div className="navbar bg-sky-700 shadow-lg text-white">
       <div className="w-full flex m-auto">
@@ -12,22 +16,34 @@ function Navbar() {
         <div className="flex-none">
           <ul className="menu menu-horizontal p-0 font-[300]">
             <li>
-              <Link to="/">Αντλίες</Link>
+              <NavLink to="/" className={checkActive}>
+                Αντλίες
+              </NavLink>
             </li>
             <li>
-              <Link to="/cashier">Ταμείο</Link>
+              <NavLink to="/cashier" className={checkActive}>
+                Ταμείο
+              </NavLink>
             </li>
             <li>
-              <Link to="/history">Ιστορικό</Link>
+              <NavLink to="/history" className={checkActive}>
+                Ιστορικό
+              </NavLink>
             </li>
             <li>
-              <Link to="/statistics">Στατιστικά</Link>
+              <NavLink to="/statistics" className={checkActive}>
+                Στατιστικά
+              </NavLink>
             </li>
             <li>
-              <Link to="/customers">Πελάτες</Link>
+              <NavLink to="/customers" className={checkActive}>
+                Πελάτες
+              </NavLink>
             </li>
             <li>
-              <Link to="/logout">Έξοδος</Link>
+              <NavLink to="/logout" className={checkActive}>
+                Έξοδος
+              </NavLink>
             </li>
           </ul>
         </div>
