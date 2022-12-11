@@ -56,12 +56,13 @@ function Cashier() {
       <img src={CashierImage} alt="cashier" className="h-[160px]" />
       <h1 className="text-xl font-[400] text-center mb-7">Το ταμείο σας για {today}</h1>
       <div className="w-full flex justify-center items-start gap-5">
-        <AnimatePresence>
-          {!showResult && (
+        <AnimatePresence mode={'wait'}>
+          {!showResult ? (
             <motion.form
+              key="form"
               initial={{ opacity: 0, x: '-100%' }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.5, type: 'spring' }}
               exit={{ opacity: 0, x: '-100%' }}
               className="w-full max-w-[700px] grid grid-cols-[150px_300px] gap-5 justify-center items-center"
               onSubmit={handleSubmit}
@@ -78,40 +79,16 @@ function Cashier() {
                 name="cashLeft"
                 required
               />
-              {/* Expenses */}
-              <label htmlFor="expenses" className={labelClasses}>
-                Έξοδα:
+              {/* Income from Pay Later */}
+              <label htmlFor="income-from-pay-later" className={labelClasses}>
+                Είσπραξη Βερεσέ:
               </label>
               <input
-                id="expenses"
+                id="income-from-pay-later"
                 type="number"
-                placeholder="έξοδα"
+                placeholder="είσπραξη βερεσέ"
                 className={inputClasses}
-                name="expenses"
-                required
-              />
-              {/* Income Cash */}
-              <label htmlFor="income-cash" className={labelClasses}>
-                Είσπραξη Ταμείο:
-              </label>
-              <input
-                id="income-cash"
-                type="number"
-                placeholder="είσπραξη ταμείο"
-                className={inputClasses}
-                name="incomeCash"
-                required
-              />
-              {/* Income from cards */}
-              <label htmlFor="income-from-cards" className={labelClasses}>
-                Είσπραξη Κάρτες:
-              </label>
-              <input
-                id="income-from-cards"
-                type="number"
-                placeholder="είσπραξη κάρτες"
-                className={inputClasses}
-                name="incomeFromCards"
+                name="incomeFromPayLater"
                 required
               />
               {/* Income for Various */}
@@ -126,16 +103,40 @@ function Cashier() {
                 name="incomeFromVarious"
                 required
               />
-              {/* Income from Pay Later */}
-              <label htmlFor="income-from-pay-later" className={labelClasses}>
-                Είσπραξη Βερεσέ:
+              {/* Expenses */}
+              <label htmlFor="expenses" className={labelClasses}>
+                Έξοδα:
               </label>
               <input
-                id="income-from-pay-later"
+                id="expenses"
                 type="number"
-                placeholder="είσπραξη βερεσέ"
+                placeholder="έξοδα"
                 className={inputClasses}
-                name="incomeFromPayLater"
+                name="expenses"
+                required
+              />
+              {/* Income from cards */}
+              <label htmlFor="income-from-cards" className={labelClasses}>
+                Είσπραξη Κάρτες:
+              </label>
+              <input
+                id="income-from-cards"
+                type="number"
+                placeholder="είσπραξη κάρτες"
+                className={inputClasses}
+                name="incomeFromCards"
+                required
+              />
+              {/* Income Cash */}
+              <label htmlFor="income-cash" className={labelClasses}>
+                Είσπραξη Ταμείο:
+              </label>
+              <input
+                id="income-cash"
+                type="number"
+                placeholder="είσπραξη ταμείο"
+                className={inputClasses}
+                name="incomeCash"
                 required
               />
               {/* Pay Later */}
@@ -152,8 +153,7 @@ function Cashier() {
               />
               <input type="submit" className="btn btn-warning w-full col-span-2 mt-5" value="Ελεγχος Ταμειου" />
             </motion.form>
-          )}
-          {showResult && (
+          ) : (
             <CashierResult
               actualIncome={actualIncome}
               incomeBasedOnPumps={incomeBasedOnPumps}

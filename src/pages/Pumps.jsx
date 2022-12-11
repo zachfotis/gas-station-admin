@@ -3,12 +3,13 @@ import Pump from '../components/Pump';
 import CashierContext from '../context/CashierContext';
 import { format } from 'date-fns';
 import { el } from 'date-fns/locale';
+import { useNavigate } from 'react-router-dom';
 
-function Cashier() {
+function Pumps() {
   const { pumps, updatePumps } = useContext(CashierContext);
-
+  const navigate = useNavigate();
   return (
-    <section className="cashier flex-1 w-full max-w-[1280px] flex flex-col justify-center items-center gap-12 p-10">
+    <section className="relative cashier flex-1 w-full max-w-[1280px] flex flex-col justify-center items-center gap-12 p-10">
       <div className="pumps relative w-full flex justify-between items-center gap-10 flex-wrap laptopLG:justify-center">
         {pumps
           .sort((a, b) => a.id - b.id)
@@ -20,10 +21,16 @@ function Cashier() {
         Τελευταία Ενημέρωση: &nbsp;
         {pumps.length > 0 && format(new Date(pumps[0]?.updated_at), 'EEEE, d LLL yyyy - HH:mm:ss', { locale: el })}
       </h1>
-      <button onClick={updatePumps} className="btn btn-warning">
+      <button
+        onClick={() => {
+          updatePumps();
+          navigate('/cashier');
+        }}
+        className="btn btn-warning"
+      >
         Ενημερωση Αντλιων
       </button>
     </section>
   );
 }
-export default Cashier;
+export default Pumps;
