@@ -57,7 +57,7 @@ function Pump({ type = 'Unknown' }) {
         </p>
       </div>
       <p className="absolute w-[40%] top-[1.2%] laptopLG:top-[0.7%] left-[41%] text-xs font-[400] text-white text-center laptopLG:text-xs flex justify-center items-center gap-1">
-        <span>Ποσοστό:</span> {currentPump && ((currentPump.priceSell / currentPump.priceBuy - 1) * 100).toFixed(2)}%
+        <span>Κέρδος:</span> {currentPump && ((currentPump.priceSell / currentPump.priceBuy - 1) * 100).toFixed(2)}%
       </p>
       <h1 className="absolute w-[40%] top-[55.5%] left-[41%] text-sm font-[400] text-center">{type}</h1>
       <motion.div

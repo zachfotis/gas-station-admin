@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 
-function CashierResult({ actualIncome, incomeBasedOnPumps, theoreticalIncome, setShowResult }) {
+function CashierResult({ totalGrossProfit, totalNetProfit, balance, setShowResult }) {
   return (
     <motion.div
       key="cashier-result"
@@ -13,16 +13,16 @@ function CashierResult({ actualIncome, incomeBasedOnPumps, theoreticalIncome, se
       <div className="flex justify-center items-center gap-[50px]">
         <div className="text-center flex flex-col justify-center items-center gap-4">
           <h1 className="font-[400] text-xl">Ταμείο Ημέρας</h1>
-          <p className="font-[500] text-3xl">{theoreticalIncome}€</p>
+          <p className="font-[500] text-3xl">{totalGrossProfit}€</p>
         </div>
         <div className="text-center flex flex-col justify-center items-center gap-4">
           <h1 className="font-[400] text-xl">Κέρδος Ημέρας</h1>
-          <p className="font-[500] text-3xl">{actualIncome}€</p>
+          <p className="font-[500] text-3xl">{totalNetProfit}€</p>
         </div>
         <div className="text-center flex flex-col justify-center items-center gap-4">
           <h1 className="font-[400] text-xl">Ισοζύγιο Ταμείου</h1>
           <p className="font-[500] text-3xl">
-            {incomeBasedOnPumps - theoreticalIncome > 0 && '+'} {incomeBasedOnPumps - theoreticalIncome}€
+            {balance > 0 && '+'} {balance}€
           </p>
         </div>
       </div>
