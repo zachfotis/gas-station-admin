@@ -46,9 +46,9 @@ function Cashier() {
             <CashierInputs formInputs={formInputs} setFormInputs={setFormInputs} setShowResult={setShowResult} />
           ) : (
             <CashierResult
-              actualIncome={actualIncome}
-              incomeBasedOnPumps={incomeBasedOnPumps}
-              theoreticalIncome={theoreticalIncome}
+              totalGrossProfit={totalGrossProfit}
+              totalNetProfit={totalNetProfit}
+              balance={balance}
               setShowResult={setShowResult}
             />
           )}
