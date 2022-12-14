@@ -19,6 +19,21 @@ function CashierInputs({ formInputs, setFormInputs, setShowResult }) {
       className="w-full max-w-[700px] grid grid-cols-[150px_300px] gap-5 justify-center items-center"
       onSubmit={handleSubmit}
     >
+      {/* {Previous Cash Left} */}
+      <label htmlFor="previous-cash-left" className={labelClasses}>
+        Προηγ. Ταμείο:
+      </label>
+      <input
+        id="previous-cash-left"
+        type="number"
+        placeholder="προηγ. ταμείο"
+        className={inputClasses}
+        name="previousCashLeft"
+        required
+        disabled
+        value={formInputs.previousCashLeft}
+        onChange={(e) => setFormInputs({ ...formInputs, previousCashLeft: Number(e.target.value) })}
+      />
       {/* Cash Left */}
       <label htmlFor="cash-left" className={labelClasses}>
         Παραμένων Ταμείο:
@@ -35,12 +50,12 @@ function CashierInputs({ formInputs, setFormInputs, setShowResult }) {
       />
       {/* Income from Pay Later */}
       <label htmlFor="income-from-pay-later" className={labelClasses}>
-        Είσπραξη Βερεσέ:
+        Έλαβα Βερεσέ:
       </label>
       <input
         id="income-from-pay-later"
         type="number"
-        placeholder="είσπραξη βερεσέ"
+        placeholder="έλαβα βερεσέ"
         className={inputClasses}
         name="incomeFromPayLater"
         required

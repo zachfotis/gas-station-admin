@@ -2,7 +2,6 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import { getFirestore, collection, getDocs, doc, updateDoc, Timestamp } from 'firebase/firestore';
 import FirebaseContext from './FirebaseContext';
 import { toast } from 'react-toastify';
-import useFirebase from '../hooks/useFirebase';
 
 const CashierContext = createContext();
 

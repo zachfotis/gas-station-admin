@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 
-function CashierResult({ totalGrossProfit, totalNetProfit, balance, setShowResult }) {
+function CashierResult({ totals, setShowResult, saveResult }) {
   return (
     <motion.div
       key="cashier-result"
@@ -13,16 +13,18 @@ function CashierResult({ totalGrossProfit, totalNetProfit, balance, setShowResul
       <div className="flex justify-center items-center gap-[50px]">
         <div className="text-center flex flex-col justify-center items-center gap-4">
           <h1 className="font-[400] text-xl">Ταμείο Ημέρας</h1>
-          <p className="font-[500] text-3xl">{totalGrossProfit}€</p>
+          <p className="font-[500] text-3xl">{totals.cashierGrossProfit}€</p>
         </div>
         <div className="text-center flex flex-col justify-center items-center gap-4">
           <h1 className="font-[400] text-xl">Κέρδος Ημέρας</h1>
-          <p className="font-[500] text-3xl">{totalNetProfit}€</p>
+          <p className={`font-[500] text-3xl ${totals.balance > 0 ? 'text-green-500' : 'text-red-500'}`}>
+            {totals.cashierNetProfit.toFixed(2)}€
+          </p>
         </div>
         <div className="text-center flex flex-col justify-center items-center gap-4">
           <h1 className="font-[400] text-xl">Ισοζύγιο Ταμείου</h1>
-          <p className="font-[500] text-3xl">
-            {balance > 0 && '+'} {balance}€
+          <p className={`font-[500] text-3xl ${totals.balance > 0 ? 'text-green-500' : 'text-red-500'}`}>
+            {totals.balance > 0 && '+'} {totals.balance.toFixed(2)}€
           </p>
         </div>
       </div>
@@ -30,7 +32,9 @@ function CashierResult({ totalGrossProfit, totalNetProfit, balance, setShowResul
         <button className="btn btn-ghost btn-md btn-outline" onClick={() => setShowResult(false)}>
           Διορθωση Ταμειου
         </button>
-        <button className="btn btn-accent btn-md ">Αποθηκευση Ταμειου</button>
+        <button className="btn btn-accent btn-md" onClick={() => saveResult()}>
+          Αποθηκευση Ταμειου
+        </button>
       </div>
     </motion.div>
   );
