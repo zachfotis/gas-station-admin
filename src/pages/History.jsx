@@ -19,6 +19,7 @@ import HistoryCard from '../components/HistoryCard';
 import HistoryIcon from '../assets/images/history.png';
 import LoaderSmall from '../components/LoaderSmall';
 import { toast } from 'react-toastify';
+import Pagination from '../components/Pagination';
 
 function History() {
   const [isLoading, setIsLoading] = useState(false);
@@ -136,14 +137,13 @@ function History() {
   return (
     <div className="flex-1 w-full max-w-[1280px] flex flex-col justify-start items-center gap-2 p-10 overflow-hidden">
       <img src={HistoryIcon} alt="page logo" className="w-[120px]" />
-      <h1 className="text-xl mt-2 mb-5">Τα προηγούμενα ταμεία σας</h1>
+      <h1 className="text-xl mt-2 mb-5">Τα ταμεία σας</h1>
       <div className="w-full max-w-[1280px] mx-auto p-5 flex flex-col justify-start items-center gap-5">
         {isLoading ? (
           <LoaderSmall />
         ) : (
           <AnimatePresence mode="wait">
             {cashiers.length ? (
-              // show only current page
               cashiers.map((cashier, index) => {
                 if (index >= currentPage * lim - lim && index < currentPage * lim) {
                   return <HistoryCard key={cashier.uid} cashier={cashier} deleteCashier={deleteCashier} />;
@@ -156,29 +156,14 @@ function History() {
         )}
         <AnimatePresence>
           {totalCashiers > lim && (
-            <motion.div
-              initial={{ y: 1000, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.5 }}
-              exit={{ y: -1000, opacity: 0 }}
-              className="btn-group mx-auto mt-10"
-            >
-              <button
-                className="btn btn-md btn-warning hover:bg-orange-400"
-                disabled={currentPage === 1}
-                onClick={handlePrevious}
-              >
-                «
-              </button>
-              <button className="btn btn-md btn-warning hover:bg-orange-400">Page {currentPage}</button>
-              <button
-                className="btn btn-md btn-warning hover:bg-orange-400"
-                disabled={currentPage * lim >= totalCashiers}
-                onClick={handleNext}
-              >
-                »
-              </button>
-            </motion.div>
+            <Pagination
+              key="pagination"
+              currentPage={currentPage}
+              lim={lim}
+              totalCount={totalCashiers}
+              handleNext={handleNext}
+              handlePrevious={handlePrevious}
+            />
           )}
         </AnimatePresence>
       </div>
