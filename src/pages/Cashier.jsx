@@ -124,24 +124,24 @@ function Cashier() {
       {isLoading ? (
         <LoaderSmall />
       ) : (
-        totals?.pumpsGrossProfit === 0 && (
-          <>
+        <>
+          {totals?.pumpsGrossProfit === 0 && (
             <h1 className="text-xl font-[600] text-center mb-7 p-3 border-4 border-red-500 rounded-lg">
               ΠΡΟΣΟΧΗ! Οι Αντλίες δεν έχουν ενημερωθεί!
             </h1>
-            <img src={CashierImage} alt="cashier" className="h-[160px]" />
-            <h1 className="text-xl font-[400] text-center mb-5">Το ταμείο σας για {today}</h1>
-            <div className="w-full flex justify-center items-start gap-5">
-              <AnimatePresence mode={'wait'}>
-                {!showResult ? (
-                  <CashierInputs formInputs={formInputs} setFormInputs={setFormInputs} setShowResult={setShowResult} />
-                ) : (
-                  <CashierResult totals={totals} setShowResult={setShowResult} saveResult={saveResult} />
-                )}
-              </AnimatePresence>
-            </div>
-          </>
-        )
+          )}
+          <img src={CashierImage} alt="cashier" className="h-[160px]" />
+          <h1 className="text-xl font-[400] text-center mb-5">Το ταμείο σας για {today}</h1>
+          <div className="w-full flex justify-center items-start gap-5">
+            <AnimatePresence mode={'wait'}>
+              {!showResult ? (
+                <CashierInputs formInputs={formInputs} setFormInputs={setFormInputs} setShowResult={setShowResult} />
+              ) : (
+                <CashierResult totals={totals} setShowResult={setShowResult} saveResult={saveResult} />
+              )}
+            </AnimatePresence>
+          </div>
+        </>
       )}
     </section>
   );
