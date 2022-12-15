@@ -11,7 +11,7 @@ function FirebaseProvider({ children }) {
   const { isFirebaseInitialized } = useFirebase();
   const [isLoading, setIsLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  const [user, setUser] = useState(null);
   const isMounted = useRef(true);
 
   useEffect(() => {
@@ -20,8 +20,10 @@ function FirebaseProvider({ children }) {
       onAuthStateChanged(auth, async (user) => {
         if (user) {
           setIsLoggedIn(true);
+          setUser(user);
         } else {
           setIsLoggedIn(false);
+          setUser(null);
         }
       });
     }
@@ -31,7 +33,7 @@ function FirebaseProvider({ children }) {
   }, [isFirebaseInitialized]);
 
   return (
-    <FirebaseContext.Provider value={{ isLoading, setIsLoading, isLoggedIn }}>
+    <FirebaseContext.Provider value={{ isLoading, setIsLoading, isLoggedIn, user }}>
       {isFirebaseInitialized && children}
       {(!isFirebaseInitialized || isLoading) && <Loader />}
     </FirebaseContext.Provider>

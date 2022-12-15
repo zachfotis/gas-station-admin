@@ -8,7 +8,7 @@ const CashierContext = createContext();
 export default CashierContext;
 
 const CashierProvider = ({ children }) => {
-  const { setIsLoading } = useContext(FirebaseContext);
+  const { user, setIsLoading } = useContext(FirebaseContext);
   const [pumps, setPumps] = useState([]);
 
   // Get Firestore
@@ -33,8 +33,10 @@ const CashierProvider = ({ children }) => {
       }
     };
 
-    getPumps();
-  }, [setIsLoading]);
+    if (user) {
+      getPumps();
+    }
+  }, [user, setIsLoading]);
 
   // Update Firestore
   const updatePumps = async () => {
