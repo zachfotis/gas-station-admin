@@ -1,6 +1,9 @@
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 function CashierResult({ totals, setShowResult, saveResult }) {
+  const navigate = useNavigate();
+
   return (
     <motion.div
       key="cashier-result"
@@ -17,13 +20,21 @@ function CashierResult({ totals, setShowResult, saveResult }) {
         </div>
         <div className="text-center flex flex-col justify-center items-center gap-4">
           <h1 className="font-[400] text-xl">Κέρδος Ημέρας</h1>
-          <p className={`font-[500] text-3xl ${totals.balance > 0 ? 'text-green-500' : 'text-red-500'}`}>
+          <p
+            className={`font-[500] text-3xl ${
+              totals?.cashierNetProfit > 0 ? 'text-green-500' : totals?.cashierNetProfit < 0 && 'text-red-500'
+            }`}
+          >
             {totals.cashierNetProfit.toFixed(2)}€
           </p>
         </div>
         <div className="text-center flex flex-col justify-center items-center gap-4">
           <h1 className="font-[400] text-xl">Ισοζύγιο Ταμείου</h1>
-          <p className={`font-[500] text-3xl ${totals.balance > 0 ? 'text-green-500' : 'text-red-500'}`}>
+          <p
+            className={`font-[500] text-3xl ${
+              totals?.balance > 0 ? 'text-green-500' : totals?.balance < 0 && 'text-red-500'
+            }`}
+          >
             {totals.balance > 0 && '+'} {totals.balance.toFixed(2)}€
           </p>
         </div>
@@ -32,7 +43,14 @@ function CashierResult({ totals, setShowResult, saveResult }) {
         <button className="btn btn-ghost btn-md btn-outline" onClick={() => setShowResult(false)}>
           Διορθωση Ταμειου
         </button>
-        <button className="btn btn-accent btn-md" onClick={() => saveResult()}>
+        <button
+          className="btn btn-accent btn-md"
+          onClick={() => {
+            saveResult();
+            setShowResult(false);
+            navigate('/history');
+          }}
+        >
           Αποθηκευση Ταμειου
         </button>
       </div>

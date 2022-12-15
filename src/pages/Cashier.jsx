@@ -8,17 +8,19 @@ import { toast } from 'react-toastify';
 import CashierImage from '../assets/images/cashier.png';
 import CashierResult from '../components/CashierResult';
 import CashierInputs from '../components/CashierInputs';
+import LoaderSmall from '../components/LoaderSmall';
 
 function Cashier() {
   const today = format(new Date(), 'EEEE, d LLL yyyy', { locale: el });
   const { pumps } = useContext(CashierContext);
+  const [isLoading, setIsLoading] = useState(false);
   const [previousPumps, setPreviousPumps] = useState([]);
   const [totals, setTotals] = useState({
-    pumpsGrossProfit: 0,
-    pumpsNetProfit: 0,
-    cashierGrossProfit: 0,
-    cashierNetProfit: 0,
-    balance: 0,
+    pumpsGrossProfit: null,
+    pumpsNetProfit: null,
+    cashierGrossProfit: null,
+    cashierNetProfit: null,
+    balance: null,
   });
   const [formInputs, setFormInputs] = useState({
     previousCashLeft: '',
@@ -76,6 +78,7 @@ function Cashier() {
 
   useEffect(() => {
     const getLastCashier = async () => {
+      setIsLoading(true);
       try {
         const db = getFirestore();
         const collectionRef = collection(db, 'cashier');
@@ -93,6 +96,7 @@ function Cashier() {
       } catch (error) {
         toast.error('Αποτυχία Ανάκτησης Προηγούμενου Ταμείου');
       }
+      setIsLoading(false);
     };
 
     getLastCashier();
@@ -117,22 +121,28 @@ function Cashier() {
 
   return (
     <section className="cashier flex-1 w-full max-w-[1280px] flex flex-col justify-center items-center gap-2 p-10 overflow-hidden">
-      {totals?.pumpsGrossProfit === 0 && (
-        <h1 className="text-xl font-[600] text-center mb-7 p-3 border-4 border-red-500 rounded-lg">
-          ΠΡΟΣΟΧΗ! Οι Αντλίες δεν έχουν ενημερωθεί!
-        </h1>
+      {isLoading ? (
+        <LoaderSmall />
+      ) : (
+        totals?.pumpsGrossProfit === 0 && (
+          <>
+            <h1 className="text-xl font-[600] text-center mb-7 p-3 border-4 border-red-500 rounded-lg">
+              ΠΡΟΣΟΧΗ! Οι Αντλίες δεν έχουν ενημερωθεί!
+            </h1>
+            <img src={CashierImage} alt="cashier" className="h-[160px]" />
+            <h1 className="text-xl font-[400] text-center mb-5">Το ταμείο σας για {today}</h1>
+            <div className="w-full flex justify-center items-start gap-5">
+              <AnimatePresence mode={'wait'}>
+                {!showResult ? (
+                  <CashierInputs formInputs={formInputs} setFormInputs={setFormInputs} setShowResult={setShowResult} />
+                ) : (
+                  <CashierResult totals={totals} setShowResult={setShowResult} saveResult={saveResult} />
+                )}
+              </AnimatePresence>
+            </div>
+          </>
+        )
       )}
-      <img src={CashierImage} alt="cashier" className="h-[160px]" />
-      <h1 className="text-xl font-[400] text-center mb-5">Το ταμείο σας για {today}</h1>
-      <div className="w-full flex justify-center items-start gap-5">
-        <AnimatePresence mode={'wait'}>
-          {!showResult ? (
-            <CashierInputs formInputs={formInputs} setFormInputs={setFormInputs} setShowResult={setShowResult} />
-          ) : (
-            <CashierResult totals={totals} setShowResult={setShowResult} saveResult={saveResult} />
-          )}
-        </AnimatePresence>
-      </div>
     </section>
   );
 }
