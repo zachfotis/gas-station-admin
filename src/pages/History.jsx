@@ -112,6 +112,10 @@ function History() {
   };
 
   const deleteCashier = async (uid) => {
+    const confirmation = window.confirm('Είστε σίγουροι ότι θέλετε να διαγράψετε την εγγραφή?');
+    if (!confirmation) {
+      return;
+    }
     setIsLoading(true);
     try {
       // delete from db
