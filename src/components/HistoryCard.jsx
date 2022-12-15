@@ -23,7 +23,7 @@ function HistoryCard({ cashier, deleteCashier }) {
         </div>
         <span className="w-[1px] h-[80%] bg-slate-300 rounded-xl" />
         <div className="flex flex-col justify-center items-center">
-          <h1 className="font-[400] text-center w-full">Κέρδος Ημέρας</h1>
+          <h1 className="font-[400] text-center w-full">Καθαρό Κέρδος</h1>
           <p
             className={`font-[500] ${
               cashier?.totals?.cashierNetProfit > 0
