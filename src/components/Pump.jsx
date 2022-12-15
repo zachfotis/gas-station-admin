@@ -63,7 +63,15 @@ function Pump({ type = 'Unknown' }) {
         </p>
       </div>
 
-      <h1 className="absolute w-[40%] top-[55.5%] left-[41%] text-sm font-[400] text-center">{type}</h1>
+      <h1
+        className="absolute w-[40%] top-[55.5%] left-[41%] text-sm font-[400] text-center cursor-pointer
+        hover:text-orange hover:font-[600]"
+        onClick={() => {
+          setShowSettings(true);
+        }}
+      >
+        {type}
+      </h1>
       <p
         className="absolute w-[40%] top-[73%] left-[41%] text-sm font-Orbitron font-[400] text-white text-center
        flex justify-center items-center gap-1"
