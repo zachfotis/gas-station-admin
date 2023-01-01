@@ -50,7 +50,7 @@ function HistoryCard({ cashier, deleteCashier }) {
       <motion.div whileHover={{ scale: 1.1 }} className="flex justify-center items-center rounded-lg">
         <MdDeleteForever
           className="text-4xl text-red-600 cursor-pointer"
-          // onClick={() => deleteCashier(cashier?.uid)}
+          onClick={() => deleteCashier(cashier?.uid)}
         />
       </motion.div>
     </motion.div>
